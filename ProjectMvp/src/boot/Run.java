@@ -14,7 +14,7 @@ public class Run {
 		v.addObserver(p);
 		m.addObserver(p);
 		v.start();
-
+		System.out.println("Test");
 	}
 
 }
