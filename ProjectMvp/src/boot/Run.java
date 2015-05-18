@@ -1,12 +1,15 @@
 package boot;
 
 import model.MazeSolutionHibernate;
+import model.MyModel;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
+import presenter.Presenter;
+import view.MyView;
 import algorithms.demo.MazeSearch;
 import algorithms.mazeGenerators.DFSMazeGenerator;
 import algorithms.mazeGenerators.Maze;
@@ -15,15 +18,17 @@ import algorithms.search.AStar;
 import algorithms.search.MazeManhattanDistance;
 import algorithms.search.Solution;
 
+///connect the two of our projects, i should do the equals function to compare mazes, do github !!!
+
+
 public class Run {
 
 	public static void main(String[] args) 
 	{
-		
 		//my Program
 		//System.out.println("hello");
 		MazeSolutionHibernate ms = new MazeSolutionHibernate();
-		MazeGenerator mg= new DFSMazeGenerator();
+		MazeGenerator mg=new DFSMazeGenerator();
 		Maze maze = mg.generateMaze(8,8);
 		ms.setMaze(maze.toString());
 		//Maze temp = ms.stringToMaze(maze.toString());
@@ -49,8 +54,7 @@ public class Run {
 		session.save(ms);
 		session.getTransaction().commit();
         System.out.println("Test connection with the database created successfuly.");
-		 
-        
+		
 		session.close();
 		
 		///////////////////////////////////////////////////////////////////
@@ -72,22 +76,7 @@ public class Run {
 		System.out.println(ms.getId()+" "+ms.getMaze()+" "+ms.getSol());
 		
 		session.close();*/
-		
-		
-		
-		
-		/*MyView v= new MyView();
-		MyModel m = new MyModel();
-		Presenter p = new Presenter(m, v);
-		v.addObserver(p);
-		m.addObserver(p);
-		v.start();
-		System.out.println("Test");*/
-		
-		
-		
-		
-		
 	}
+	
 
 }
