@@ -23,7 +23,7 @@ public class Run {
 		//my Program
 		//System.out.println("hello");
 		MazeSolutionHibernate ms = new MazeSolutionHibernate();
-		MazeGenerator mg=new DFSMazeGenerator();
+		MazeGenerator mg=(MazeGenerator) new DFSMazeGenerator();
 		Maze maze = mg.generateMaze(8,8);
 		ms.setMaze(maze.toString());
 		//Maze temp = ms.stringToMaze(maze.toString());
