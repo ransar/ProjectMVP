@@ -49,7 +49,8 @@ public class Run {
 		session.save(ms);
 		session.getTransaction().commit();
         System.out.println("Test connection with the database created successfuly.");
-		
+		 
+        
 		session.close();
 		
 		///////////////////////////////////////////////////////////////////
