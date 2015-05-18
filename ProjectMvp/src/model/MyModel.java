@@ -178,8 +178,8 @@ public class MyModel extends Observable implements Model
 			Session session = sessionFactory.openSession();
 			session.beginTransaction();
 			MazeSolutionHibernate msh = new MazeSolutionHibernate();
-			//msh.setMaze(maze.toString());
-			//msh.setSol(sol.toString());
+			msh.setMaze(maze.toString());
+			msh.setSol(sol.toString());
 			msh.setId(MazeName);
 			
 			session.save(msh);

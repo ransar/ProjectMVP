@@ -27,7 +27,7 @@ public class Run {
 	{
 		//my Program
 		//System.out.println("hello");
-		MazeSolutionHibernate ms = new MazeSolutionHibernate();
+		/*MazeSolutionHibernate ms = new MazeSolutionHibernate();
 		MazeGenerator mg=new DFSMazeGenerator();
 		Maze maze = mg.generateMaze(8,8);
 		ms.setMaze(maze.toString());
@@ -43,7 +43,7 @@ public class Run {
 		//sl = ms.stringToSolution(sol.toString());
 		//System.out.println();
 		//sl.displaySolution();
-		ms.setId("abc");
+		ms.setId("maze123");
         System.out.println("Trying to create a test connection with the database.");
         Configuration configuration = new Configuration();
         configuration.configure("hibernate.cfg.xml");
@@ -55,20 +55,20 @@ public class Run {
 		session.getTransaction().commit();
         System.out.println("Test connection with the database created successfuly.");
 		
-		session.close();
+		session.close();*/
 		
 		///////////////////////////////////////////////////////////////////
-		/*m.setName("test123");
+		MyModel m = new MyModel();
+		m.setName("test123");
 		m.generateMaze(5,5);
 		m.solveMaze(m.getMaze());
 		m.getMaze().print();
 		m.getSolution().displaySolution();*/
 		/*MyView v = new MyView();
-		MyModel m = new MyModel();
 		Presenter p = new Presenter(m,v);
 		m.addObserver(p);
 		v.addObserver(p);
-		v.start();*/
+		v.start();
 		/*ms = null;
 		session = sessionFactory.openSession();
 		session.beginTransaction();
