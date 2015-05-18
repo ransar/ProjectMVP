@@ -1,1 +1,1 @@
-#maze1#maze2
+#maze#maze1
