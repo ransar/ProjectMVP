@@ -9,6 +9,7 @@
 	<classpathentry kind="lib" path="lib/mysql-connector-java-5.0.8-bin.jar"/>
 	<classpathentry kind="lib" path="lib/projectTest.jar"/>
 	<classpathentry kind="lib" path="lib/comp&amp;decomp.jar"/>
+	<classpathentry kind="lib" path="algo.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hibernate"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

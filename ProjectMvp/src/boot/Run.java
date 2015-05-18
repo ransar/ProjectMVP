@@ -43,7 +43,7 @@ public class Run {
 		//sl = ms.stringToSolution(sol.toString());
 		//System.out.println();
 		//sl.displaySolution();
-		ms.setId("abc");
+		ms.setId("abcde");
         System.out.println("Trying to create a test connection with the database.");
         Configuration configuration = new Configuration();
         configuration.configure("hibernate.cfg.xml");
@@ -68,7 +68,7 @@ public class Run {
 		Presenter p = new Presenter(m,v);
 		m.addObserver(p);
 		v.addObserver(p);
-		v.start();*/
+		v.start();
 		/*ms = null;
 		session = sessionFactory.openSession();
 		session.beginTransaction();
