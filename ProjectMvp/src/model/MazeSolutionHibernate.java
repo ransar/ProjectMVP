@@ -5,12 +5,9 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
@@ -21,9 +18,9 @@ public class MazeSolutionHibernate
 {
 	@Id
 	private String id;
-	//@Column(name = "maze", length = 65536)
+	@Column(length=1000) 
 	private String maze;
-	//@Column(name = "solution", length = 65536)
+	@Column(length=1000) 
 	private String sol;
 	public String getId() {
 		return id;
