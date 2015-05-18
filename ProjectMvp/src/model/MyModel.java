@@ -74,11 +74,11 @@ public class MyModel extends Observable implements Model
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			for(int i=0;i<names.length;i++)
+			for(int i=1;i<names.length;i++)
 			{
 				ms = (MazeSolutionHibernate) session.get(MazeSolutionHibernate.class,names[i]);
 				HashMap<Maze, Solution> temp = new HashMap<Maze, Solution>();
-				//temp.put(ms.stringToMaze(ms.getMaze()), ms.stringToSolution(ms.getSol()));
+				temp.put(ms.stringToMaze(ms.getMaze()), ms.stringToSolution(ms.getSol()));
 				msols.put(ms.getId(), temp);
 				
 			}

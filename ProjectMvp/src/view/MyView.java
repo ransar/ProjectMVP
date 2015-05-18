@@ -51,12 +51,13 @@ public class MyView extends Observable implements View {
 	public void displayMaze(Maze m) 
 	{
 		m.print();
+		c.start();
 	}
 
 	@Override
 	public void displaySolution(Solution s)
 	{
-		
+		s.displaySolution();
 	}
 
 }

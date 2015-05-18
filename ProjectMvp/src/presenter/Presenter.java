@@ -1,8 +1,10 @@
 package presenter;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -41,9 +43,6 @@ public class Presenter implements Observer{
 			String[] ints = command.split(" ");
 			int rows=Integer.parseInt(ints[1]);
 			int cols=Integer.parseInt(ints[2]);
-			OutputStream out = new FileOutputStream(new File("name.txt"));
-			String str = "#" + ints[0];
-			out.write(str.getBytes());
 			m.generateMaze(rows,cols);
 			Maze maze = m.getMaze();
 			mazes.put(ints[0], maze);
@@ -54,14 +53,35 @@ public class Presenter implements Observer{
 		@Override
 		public void doCommand(String path) throws FileNotFoundException,IOException
 		{
-			v.displayMaze(mazes.get(command));
+			v.displayMaze(m.getMaze());
 		}	
 	}
 	public class solveMaze implements Command
 	{
 		public void doCommand(String path) throws FileNotFoundException,IOException
 		{
-			Maze maze = mazes.get(command);
+			String[] ints = command.split(" ");
+			BufferedReader reader = new BufferedReader(new FileReader("names.txt"));
+			String temp = "";
+			String line = "";
+			try 
+			{
+				while ((temp = reader.readLine()) != null)
+				{
+					line+=temp;
+				}
+			} 
+			catch (IOException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			reader.close();
+			
+			OutputStream out = new FileOutputStream(new File("names.txt"));
+			String str = line + "#" + ints[0];
+			out.write(str.getBytes());
+			Maze maze = m.getMaze();
 			m.solveMaze(maze);
 			System.out.println("Solution for " + command + " is ready!");			
 		}		
