@@ -78,7 +78,7 @@ public class MyModel extends Observable implements Model
 			{
 				ms = (MazeSolutionHibernate) session.get(MazeSolutionHibernate.class,names[i]);
 				HashMap<Maze, Solution> temp = new HashMap<Maze, Solution>();
-				temp.put(ms.stringToMaze(ms.getMaze()), ms.stringToSolution(ms.getSol()));
+				//temp.put(ms.stringToMaze(ms.getMaze()), ms.stringToSolution(ms.getSol()));
 				msols.put(ms.getId(), temp);
 				
 			}

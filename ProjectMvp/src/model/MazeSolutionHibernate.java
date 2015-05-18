@@ -12,8 +12,6 @@ import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
 import algorithms.search.State;
 
-
-
 @Entity
 public class MazeSolutionHibernate 
 {

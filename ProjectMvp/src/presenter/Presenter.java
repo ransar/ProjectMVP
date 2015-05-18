@@ -1,7 +1,11 @@
 package presenter;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
@@ -37,6 +41,9 @@ public class Presenter implements Observer{
 			String[] ints = command.split(" ");
 			int rows=Integer.parseInt(ints[1]);
 			int cols=Integer.parseInt(ints[2]);
+			OutputStream out = new FileOutputStream(new File("name.txt"));
+			String str = "#" + ints[0];
+			out.write(str.getBytes());
 			m.generateMaze(rows,cols);
 			Maze maze = m.getMaze();
 			mazes.put(ints[0], maze);
