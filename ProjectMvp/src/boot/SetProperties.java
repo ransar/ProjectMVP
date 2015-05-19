@@ -14,6 +14,7 @@ public class SetProperties {
 		Properties pro=new Properties();
 		try 
 		{
+			
 			e = new XMLEncoder(new FileOutputStream("properties.xml"));
 			e.writeObject(pro);
 			e.flush();

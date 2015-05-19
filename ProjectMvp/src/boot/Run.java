@@ -38,7 +38,10 @@ public class Run {
 		v.addObserver(p);
 		v.start();
 	}
-	
+	/**
+	 * Reads the properties from the XML file and sets the project's properties.
+	 * @return the class properties with the selceted fields
+	 */
 	private static Properties readProperties()
 	{
 		XMLDecoder d;
