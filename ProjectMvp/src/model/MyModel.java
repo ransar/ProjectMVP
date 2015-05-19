@@ -87,18 +87,21 @@ public class MyModel extends Observable implements Model
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			for(int i=1;i<names.length;i++)
+			if(names!=null)
 			{
-				ms = (MazeSolutionHibernate) session.get(MazeSolutionHibernate.class,names[i]);
-				HashMap<Maze, Solution> temp = new HashMap<Maze, Solution>();
-				temp.put(ms.stringToMaze(ms.getMaze()), ms.stringToSolution(ms.getSol()));
-				msols.put(ms.getId(), temp);
 				
+				for(int i=1;i<names.length;i++)
+				{
+					ms = (MazeSolutionHibernate) session.get(MazeSolutionHibernate.class,names[i]);
+					HashMap<Maze, Solution> temp = new HashMap<Maze, Solution>();
+					temp.put(ms.stringToMaze(ms.getMaze()), ms.stringToSolution(ms.getSol()));
+					msols.put(ms.getId(), temp);
+					
+				}
 			}
 		} 
 		catch (FileNotFoundException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//System.out.println(ms.getId()+" "+ms.getMaze()+" "+ms.getSol());
@@ -212,29 +215,19 @@ public class MyModel extends Observable implements Model
 			Session session = sessionFactory.openSession();
 			session.beginTransaction();
 			MazeSolutionHibernate msh = new MazeSolutionHibernate();
-			/*Set<String> names = msols.keySet();
-			for(String name:names)
+			Set<String> names = msols.keySet();
+			if(!names.contains(MazeName))
 			{
-				HashMap<Maze, Solution> temp = new HashMap<Maze, Solution>();
-				temp = msols.get(name);
-				for(Maze mz: temp.keySet())
-				{
-					if(mz.equals(m))
-					{
-						msh.setMaze(m.toString());
-						msh.setSol(temp.get(m).toString());
-						msh.setId(name);
-						session.save(msh);
-					}
-				}
-			}*/
-			msh.setMaze(maze.toString());
-			msh.setSol(sol.toString());
-			msh.setId(MazeName);
-			
-			session.save(msh);
-			session.getTransaction().commit();
-			
+				msh.setMaze(maze.toString());
+				msh.setSol(sol.toString());
+				msh.setId(MazeName);
+				session.save(msh);
+				session.getTransaction().commit();
+			}
+			else
+			{
+				System.out.println("You entered the same name for two different mazes, This maze and solution won't go inside the database.");
+			}
 			session.close();
 			
 		}
@@ -251,9 +244,6 @@ public class MyModel extends Observable implements Model
 	public Solution getSolution() 
 	{
 		System.out.println("get solution of the maze");
-		
-		//HashMap<Maze, Solution> temp = msols.get(name);
-		//Solution solution = temp.values().iterator().next();
 		
 		
 		if(sol==null)
@@ -295,11 +285,16 @@ public class MyModel extends Observable implements Model
 		
 	}
 
+	 /**
+	   * This method sets the solution of the maze.
+	   * @param s <b>(Solution) </b>This is the parameter to the setSol method
+	   * @return Nothing.
+	   */
+	
 	@Override
 	public void setSol(Solution s) 
 	{
 		this.sol = s;
-		
 	}
 	
 

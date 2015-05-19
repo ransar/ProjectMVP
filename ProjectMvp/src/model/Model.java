@@ -55,5 +55,12 @@ public interface Model
 	   */
 	
 	void setName(String s);
+	
+	 /**
+	   * This method sets the solution of the maze.
+	   * @param s <b>(Solution) </b>This is the parameter to the setSol method
+	   * @return Nothing.
+	   */
+	
 	void setSol(Solution s);
 }
