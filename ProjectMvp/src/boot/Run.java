@@ -48,6 +48,7 @@ public class Run {
 			d=new XMLDecoder(in);
 			p=(Properties)d.readObject();
 			d.close();
+			in.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

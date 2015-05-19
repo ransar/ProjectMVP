@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Observable;
 import java.util.Set;
 import java.util.concurrent.Callable;
@@ -13,6 +14,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -194,8 +196,6 @@ public class MyModel extends Observable implements Model
 		//HashMap<Maze, Solution> temp = msols.get(name);
 		//Maze mz = temp.keySet().iterator().next();
 		
-		
-		System.out.println("get maze");
 		if(maze==null)
 		{
 			System.out.println("No maze yet");
@@ -285,9 +285,6 @@ public class MyModel extends Observable implements Model
             });
 			break;
 			}
-			HashMap <Maze, Solution> temp1 = new HashMap<Maze, Solution>(); 
-			temp1.put(maze, sol);
-			this.msols.put(MazeName,temp1);//not working don't know why...
 			
 			/////here we communicate with the database
 			
@@ -306,6 +303,9 @@ public class MyModel extends Observable implements Model
 				msh.setId(MazeName);
 				session.save(msh);
 				session.getTransaction().commit();
+				HashMap <Maze, Solution> temp1 = new HashMap<Maze, Solution>(); 
+				temp1.put(maze, sol);
+				this.msols.put(MazeName,temp1);
 			}
 			else
 			{
@@ -326,8 +326,6 @@ public class MyModel extends Observable implements Model
 	@Override
 	public Solution getSolution() 
 	{
-		System.out.println("get solution of the maze");
-		
 		
 		if(sol==null)
 		{
