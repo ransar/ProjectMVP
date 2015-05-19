@@ -107,6 +107,7 @@ public class Presenter implements Observer{
 			OutputStream out = new FileOutputStream(new File("names.txt"));
 			String str = line + "#" + ints[0];
 			out.write(str.getBytes());
+			out.close();
 		}		
 	}
 	/**

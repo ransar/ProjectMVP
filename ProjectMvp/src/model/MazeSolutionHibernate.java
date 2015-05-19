@@ -103,7 +103,6 @@ public class MazeSolutionHibernate
 		int count = 0;
 		Maze maze = new Maze(Integer.parseInt(str[0]), Integer.parseInt(str[1]));
 		String [] vals = str[2].split("(?<=\\G....)");
-		System.out.println(vals[0] + " " +vals[1]);
 		for(int i=0;i<Integer.parseInt(str[0]);i++)
 		{
 			for(int j=0;j<Integer.parseInt(str[1]);j++)

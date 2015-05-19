@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Set;
@@ -19,11 +18,15 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
+import presenter.Properties;
 import algorithms.demo.MazeSearch;
 import algorithms.mazeGenerators.DFSMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MazeGenerator;
+import algorithms.mazeGenerators.RandomMazeGenerator;
 import algorithms.search.AStar;
+import algorithms.search.BFS;
+import algorithms.search.MazeAirDistance;
 import algorithms.search.MazeManhattanDistance;
 import algorithms.search.Solution;
 
@@ -47,6 +50,7 @@ public class MyModel extends Observable implements Model
 	Solution sol;
 	String MazeName;
 	HashMap<String,HashMap<Maze, Solution>> msols;
+	Properties pro;
 	
 	
 	 /**
@@ -57,10 +61,11 @@ public class MyModel extends Observable implements Model
 	   * @return Nothing.
 	   */
 	
-	public MyModel() 
+	public MyModel(Properties pro) 
 	{
 		//Initialize the threadpool.
-		this.executor = Executors.newCachedThreadPool();
+		this.pro = pro;
+		executor=Executors.newFixedThreadPool(pro.getThreadNumber());
 		msols = new HashMap<String, HashMap<Maze,Solution>>();
 		//getting all the data from the database.
         Configuration configuration = new Configuration();
@@ -120,29 +125,60 @@ public class MyModel extends Observable implements Model
 	public void generateMaze(int rows, int cols) 
 	{
 		
-	
-		Future<Maze> future = executor.submit(new Callable<Maze>()
+		switch(pro.getMazeGenerator()) //it worked with anonymous class!!!!! dont know why but do this for all and investigate further!!!!!
+		{
+		case DFS_ALGO:
+			Future<Maze> future = executor.submit(new Callable<Maze>()
+					{
+	            @Override
+	            public Maze call() throws Exception 
+	            {
+	    			MazeGenerator mg=new DFSMazeGenerator();
+	    			maze = mg.generateMaze(rows,cols);
+	    			return maze;
+	             }
+	             });
+			notifyObservers("Genrate completed");
+			try 
+			{
+				Maze temp = future.get();
+			} 
+			catch (InterruptedException e) 
+			{
+				e.printStackTrace();
+			} catch (ExecutionException e) 
+			{
+				e.printStackTrace();
+			}
+			break;
+		case RANDOM_ALGO:
+			Future<Maze> future1 = executor.submit(new Callable<Maze>()
+					{
+	            @Override
+	            public Maze call() throws Exception 
+	            {
+	    			MazeGenerator mg=new RandomMazeGenerator();
+	    			maze = mg.generateMaze(rows,cols);
+	    			return maze;
+	             }
+	             });
+				notifyObservers("Genrate completed");
+				try 
 				{
-            @Override
-            public Maze call() throws Exception 
-            {
-    			MazeGenerator mg=new DFSMazeGenerator();
-    			maze = mg.generateMaze(rows,cols);
-    			return maze;
-             }
-             });
-		notifyObservers("Genrate completed");
-		try 
-		{
-			Maze temp = future.get();
-		} 
-		catch (InterruptedException e) 
-		{
-			e.printStackTrace();
-		} catch (ExecutionException e) 
-		{
-			e.printStackTrace();
+					Maze temp = future1.get();
+				} 
+				catch (InterruptedException e) 
+				{
+					e.printStackTrace();
+				} catch (ExecutionException e) 
+				{
+					e.printStackTrace();
+				}
+			break;
+		default:
+			break;
 		}
+		
 		
 		
 	}
@@ -187,8 +223,39 @@ public class MyModel extends Observable implements Model
 		}
 		else
 		{
-			
-			Future<Solution> future = executor.submit(new Callable<Solution>()
+			Future<Solution> future;
+			switch(pro.getMazeSolver())
+			{
+			case BFS_DIAGONAL:
+			future = executor.submit(new Callable<Solution>()
+			{
+                @Override
+                public Solution call() throws Exception 
+                {
+                	notifyObservers("\nSolution BFS with diagonals");
+        			MazeSearch ms2 = new MazeSearch(m,true);
+        			BFS sol3 = new BFS();
+        			sol = sol3.search(ms2);
+        			return sol;
+                 }
+            });
+			break;
+			case BFS_NO_DIAGONAL:
+			future = executor.submit(new Callable<Solution>()
+			{
+                @Override
+                public Solution call() throws Exception 
+                {
+            		System.out.println("\nSolution BFS without diagonals");
+            		MazeSearch ms1 = new MazeSearch(m,false);
+            		BFS sol1 = new BFS();
+            		sol = sol1.search(ms1);
+            		return sol;
+                 }
+            });
+			break;
+			case ASTAR_MANHATTAN_DISTANCE:
+			future = executor.submit(new Callable<Solution>()
 			{
                 @Override
                 public Solution call() throws Exception 
@@ -201,7 +268,23 @@ public class MyModel extends Observable implements Model
         			return sol;
                  }
             });
-			
+			break;
+			case ASTAR_AIR_DISTANCE:
+			future = executor.submit(new Callable<Solution>()
+			{
+                @Override
+                public Solution call() throws Exception 
+                {
+            		System.out.println("\nSolution A* with diagonals");
+            		MazeSearch ams2 = new MazeSearch(m,true);
+            		AStar sol7 = new AStar();
+            		sol7.setH(new MazeAirDistance());
+            		sol = sol7.search(ams2);
+            		return sol;
+                 }
+            });
+			break;
+			}
 			HashMap <Maze, Solution> temp1 = new HashMap<Maze, Solution>(); 
 			temp1.put(maze, sol);
 			this.msols.put(MazeName,temp1);//not working don't know why...
