@@ -4,15 +4,28 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-
-public class CliMVP extends CLI{
+/**
+ * This is the cli we use in the MVP pattern. a generic cli that works with all the different types of commands.
+ * @author Ran Saroussi
+ *
+ */
+public class CliMVP extends CLI implements Runnable{
 	MyView v;
+	/**
+	 * Constructs the cliMvp
+	 * @param in a BufferedReader we put on the super class
+	 * @param out a PrintWriter we put on the super class
+	 */
 	public CliMVP(BufferedReader in, PrintWriter out) 
 	{
 		super(in, out);
 		
 		// TODO Auto-generated constructor stub
 	}
+	/**
+	 * Setting the hash map in the class to the injected hashmap
+	 * @param h the injected hashmap
+	 */
 	public void setHashMap(HashMap<String, Command> h)
 	{
 		for (String s : h.keySet()) 
@@ -20,11 +33,18 @@ public class CliMVP extends CLI{
 			addCommand(h.get(s), s);
 		}
 	}
+	/**
+	 * Srtting the view to the injected view
+	 * @param v2 the injected MyView
+	 */
 	public void setView(MyView v2)
 	{
 		this.v=v2;
 	}
 	@Override
+	/**
+	 * Overrides the start of the CLI (the super class) to work in the MVP pattern
+	 */
 	public void start()
 	{
 		String arg = "";
@@ -71,13 +91,14 @@ public class CliMVP extends CLI{
 						}
 					}
 					else
-						System.out.println("Wrong amout of words, sould be at least 2");
+						System.out.println("Wrong amount of words, sould be at least 2");
 					
 				}
 				else
 					System.out.println("Wrong command name,enter another one : ");
 				System.out.print("Enter command: ");
 				line = in.readLine();
+				arg="";
 			}
 			if(line.equals("exit"))
 			{
@@ -96,6 +117,14 @@ public class CliMVP extends CLI{
 				e.printStackTrace();
 			}			
 		}	
+	}
+	@Override
+	/**
+	 * The runnable method run.
+	 */
+	public void run() {
+		// TODO Auto-generated method stub
+		start();
 	}
 
 }

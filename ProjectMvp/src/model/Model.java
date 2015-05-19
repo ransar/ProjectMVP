@@ -27,7 +27,7 @@ public interface Model
 	   * @param name <b>(String) </b>This is the parameter to the getMaze method.
 	   * @return maze <b>(Maze) </b>.
 	   */
-	Maze getMaze(String name);
+	Maze getMaze();
 	 /**
 	   * This method solves the Maze m.
 	   * @param m <b>(Maze) </b>This is the parameter to the solveMaze method
@@ -37,11 +37,10 @@ public interface Model
 	
 	 /**
 	   * This method gets the Solution with the specific maze name.
-	   * @param name <b>(String) </b>This is the parameter to the getSolution method.
 	   * @return sol <b>(Solution) </b>.
 	   */
 
-	Solution getSolution(String name);
+	Solution getSolution();
 	 /**
 	   * This method stops the whole process, shuts down the threadpool.
 	   * @param Nothing.
@@ -56,4 +55,5 @@ public interface Model
 	   */
 	
 	void setName(String s);
+	void setSol(Solution s);
 }

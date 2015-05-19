@@ -116,7 +116,6 @@ public class MyModel extends Observable implements Model
 	@Override
 	public void generateMaze(int rows, int cols) 
 	{
-		System.out.println("generated a maze !");
 		
 	
 		Future<Maze> future = executor.submit(new Callable<Maze>()
@@ -129,6 +128,7 @@ public class MyModel extends Observable implements Model
     			return maze;
              }
              });
+		notifyObservers("Genrate completed");
 		try 
 		{
 			Maze temp = future.get();
@@ -136,15 +136,13 @@ public class MyModel extends Observable implements Model
 		catch (InterruptedException e) 
 		{
 			e.printStackTrace();
-		} 
-		catch (ExecutionException e) 
+		} catch (ExecutionException e) 
 		{
 			e.printStackTrace();
 		}
 		
 		
 	}
-
 	 /**
 	   * This method gets the maze with the specific name.
 	   * @param name <b>(String) </b>This is the parameter to the getMaze method.
@@ -152,19 +150,19 @@ public class MyModel extends Observable implements Model
 	   */
 	
 	@Override
-	public Maze getMaze(String name) 
+	public Maze getMaze() 
 	{
-		HashMap<Maze, Solution> temp = msols.get(name);
-		Maze mz = temp.keySet().iterator().next();
+		//HashMap<Maze, Solution> temp = msols.get(name);
+		//Maze mz = temp.keySet().iterator().next();
 		
 		
 		System.out.println("get maze");
-		if(mz==null)
+		if(maze==null)
 		{
 			System.out.println("No maze yet");
 			return null;
 		}
-		return mz;
+		return maze;
 	}
 
 	 /**
@@ -176,7 +174,6 @@ public class MyModel extends Observable implements Model
 	@Override
 	public void solveMaze(Maze m) 
 	{
-		System.out.println("solve maze");
 		if(msols.containsKey(MazeName))
 		{
 			HashMap <Maze, Solution> temp = new HashMap<Maze, Solution>(); 
@@ -193,7 +190,7 @@ public class MyModel extends Observable implements Model
                 @Override
                 public Solution call() throws Exception 
                 {
-        			System.out.println("\nSolution A* without diagonals");
+                	notifyObservers("\nSolution A* without diagonals");
         			MazeSearch ams1 = new MazeSearch(m,false);
         			AStar sol5 = new AStar();
         			sol5.setH(new MazeManhattanDistance());
@@ -202,10 +199,9 @@ public class MyModel extends Observable implements Model
                  }
             });
 			
-			//HashMap <Maze, Solution> temp = new HashMap<Maze, Solution>(); 
-			//temp.put(maze, sol);
-			//msols.put(MazeName,temp);
-			
+			HashMap <Maze, Solution> temp1 = new HashMap<Maze, Solution>(); 
+			temp1.put(maze, sol);
+			this.msols.put(MazeName,temp1);//not working don't know why...
 			
 			/////here we communicate with the database
 			
@@ -216,7 +212,7 @@ public class MyModel extends Observable implements Model
 			Session session = sessionFactory.openSession();
 			session.beginTransaction();
 			MazeSolutionHibernate msh = new MazeSolutionHibernate();
-			Set<String> names = msols.keySet();
+			/*Set<String> names = msols.keySet();
 			for(String name:names)
 			{
 				HashMap<Maze, Solution> temp = new HashMap<Maze, Solution>();
@@ -228,12 +224,13 @@ public class MyModel extends Observable implements Model
 						msh.setMaze(m.toString());
 						msh.setSol(temp.get(m).toString());
 						msh.setId(name);
+						session.save(msh);
 					}
 				}
-			}
-			/*msh.setMaze(maze.toString());
+			}*/
+			msh.setMaze(maze.toString());
 			msh.setSol(sol.toString());
-			msh.setId(MazeName);*/
+			msh.setId(MazeName);
 			
 			session.save(msh);
 			session.getTransaction().commit();
@@ -251,20 +248,20 @@ public class MyModel extends Observable implements Model
 	   */
 	
 	@Override
-	public Solution getSolution(String name) 
+	public Solution getSolution() 
 	{
 		System.out.println("get solution of the maze");
 		
-		HashMap<Maze, Solution> temp = msols.get(name);
-		Solution solution = temp.values().iterator().next();
+		//HashMap<Maze, Solution> temp = msols.get(name);
+		//Solution solution = temp.values().iterator().next();
 		
 		
-		if(solution==null)
+		if(sol==null)
 		{
 			System.out.println("No solution yet");
 			return null;
 		}
-		return solution;
+		return sol;
 	}
 
 	
@@ -295,6 +292,13 @@ public class MyModel extends Observable implements Model
 	public void setName(String string) 
 	{
 		this.MazeName = string;
+		
+	}
+
+	@Override
+	public void setSol(Solution s) 
+	{
+		this.sol = s;
 		
 	}
 	
