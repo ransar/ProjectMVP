@@ -48,15 +48,19 @@ public class MyModel extends Observable implements Model
 	
 	
 	 /**
-	   * This method converts the data in an InputStream to a String.
-	   * @param in <b>(InputStream) </b>This is the parameter to the fromStream method
-	   * @return s <b>(String) </b>
+	   * This is the C'tor of MyModel. 
+	   * <p>The first thing it does is initialize the ThreadPool.
+	   * The second thing it does is getting all the data(name, maze, solution) from the database, from the MazeSolutionHibernate table..
+	   * @param Nothing.
+	   * @return Nothing.
 	   */
 	
 	public MyModel() 
 	{
+		//Initialize the threadpool.
 		this.executor = Executors.newCachedThreadPool();
 		msols = new HashMap<String, HashMap<Maze,Solution>>();
+		//getting all the data from the database.
         Configuration configuration = new Configuration();
         configuration.configure("hibernate.cfg.xml");
         StandardServiceRegistryBuilder ssrb = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
@@ -64,7 +68,6 @@ public class MyModel extends Observable implements Model
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		MazeSolutionHibernate ms = new MazeSolutionHibernate();
-		//ms = (MazeSolutionHibernate) session.get(MazeSolutionHibernate.class,"gogo");
 		String [] names = null;
 		try 
 		{
@@ -100,6 +103,14 @@ public class MyModel extends Observable implements Model
 		
 		session.close();
 	}
+	
+	 /**
+	   * This method generates a (rows * cols) size maze .
+	   * @param rows <b>(int) </b>This is the first parameter to the generateMaze method
+	   * @param cols <b>(int) </b>This is the second parameter to the generateMaze method
+	   * @return Nothing.
+	   */
+	
 	@Override
 	public void generateMaze(int rows, int cols) 
 	{
@@ -123,7 +134,8 @@ public class MyModel extends Observable implements Model
 		catch (InterruptedException e) 
 		{
 			e.printStackTrace();
-		} catch (ExecutionException e) 
+		} 
+		catch (ExecutionException e) 
 		{
 			e.printStackTrace();
 		}
@@ -131,6 +143,12 @@ public class MyModel extends Observable implements Model
 		
 	}
 
+	 /**
+	   * This method gets the current maze.
+	   * @param Nothing.
+	   * @return maze <b>(Maze) </b>.
+	   */
+	
 	@Override
 	public Maze getMaze() 
 	{
@@ -143,6 +161,12 @@ public class MyModel extends Observable implements Model
 		return maze;
 	}
 
+	 /**
+	   * This method solves the Maze m, in the end it adds the name of the maze, the maze itself and it's solution into the database.
+	   * @param m <b>(Maze) </b>This is the parameter to the solveMaze method
+	   * @return Nothing.
+	   */
+	
 	@Override
 	public void solveMaze(Maze m) 
 	{
@@ -199,6 +223,12 @@ public class MyModel extends Observable implements Model
 		
 	}
 
+	 /**
+	   * This method gets the current Solution.
+	   * @param Nothing.
+	   * @return sol <b>(Solution) </b>.
+	   */
+	
 	@Override
 	public Solution getSolution() 
 	{
@@ -211,6 +241,13 @@ public class MyModel extends Observable implements Model
 		return sol;
 	}
 
+	
+	 /**
+	   * This method stops the whole process, shuts down the threadpool.
+	   * @param Nothing.
+	   * @return Nothing.
+	   */
+	
 	@Override
 	public void stop() 
 	{
@@ -221,6 +258,13 @@ public class MyModel extends Observable implements Model
 		executor.shutdown();
 		
 	}
+	
+	 /**
+	   * This method sets the name of the maze.
+	   * @param s <b>(String) </b>This is the parameter to the setName method
+	   * @return Nothing.
+	   */
+	
 	@Override
 	public void setName(String string) 
 	{
