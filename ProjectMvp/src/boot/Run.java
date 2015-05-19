@@ -18,6 +18,8 @@ import algorithms.search.AStar;
 import algorithms.search.MazeManhattanDistance;
 import algorithms.search.Solution;
 
+///////Submitted by: Sarusi Ran 208631143, Gershfeld Itzik 208491886
+
 
 /**
  * This is the Run class that contains the main function which connects the observer with the other observables.
@@ -33,7 +35,7 @@ public class Run {
 	{
 		//my Program
 		//System.out.println("hello");
-		MazeSolutionHibernate ms = new MazeSolutionHibernate();
+		/*MazeSolutionHibernate ms = new MazeSolutionHibernate();
 		MazeGenerator mg=new DFSMazeGenerator();
 		Maze maze = mg.generateMaze(10,10);
 		ms.setMaze(maze.toString());
@@ -61,20 +63,20 @@ public class Run {
 		session.getTransaction().commit();
         System.out.println("Test connection with the database created successfuly.");
 		
-		session.close();
+		session.close();*/
 		
 		///////////////////////////////////////////////////////////////////
-		/*MyModel m = new MyModel();
+		MyModel m = new MyModel();
 		/*m.setName("test123");
 		m.generateMaze(5,5);
 		m.solveMaze(m.getMaze());
 		m.getMaze().print();
 		m.getSolution().displaySolution();*/
-		/*MyView v = new MyView();
+		MyView v = new MyView();
 		Presenter p = new Presenter(m,v);
 		m.addObserver(p);
 		v.addObserver(p);
-		v.start();*/
+		v.start();
 		/*ms = null;
 		session = sessionFactory.openSession();
 		session.beginTransaction();

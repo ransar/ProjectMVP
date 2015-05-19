@@ -4,8 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Observable;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -144,21 +146,25 @@ public class MyModel extends Observable implements Model
 	}
 
 	 /**
-	   * This method gets the current maze.
-	   * @param Nothing.
+	   * This method gets the maze with the specific name.
+	   * @param name <b>(String) </b>This is the parameter to the getMaze method.
 	   * @return maze <b>(Maze) </b>.
 	   */
 	
 	@Override
-	public Maze getMaze() 
+	public Maze getMaze(String name) 
 	{
+		HashMap<Maze, Solution> temp = msols.get(name);
+		Maze mz = temp.keySet().iterator().next();
+		
+		
 		System.out.println("get maze");
-		if(maze==null)
+		if(mz==null)
 		{
 			System.out.println("No maze yet");
 			return null;
 		}
-		return maze;
+		return mz;
 	}
 
 	 /**
@@ -210,9 +216,24 @@ public class MyModel extends Observable implements Model
 			Session session = sessionFactory.openSession();
 			session.beginTransaction();
 			MazeSolutionHibernate msh = new MazeSolutionHibernate();
-			msh.setMaze(maze.toString());
+			Set<String> names = msols.keySet();
+			for(String name:names)
+			{
+				HashMap<Maze, Solution> temp = new HashMap<Maze, Solution>();
+				temp = msols.get(name);
+				for(Maze mz: temp.keySet())
+				{
+					if(mz.equals(m))
+					{
+						msh.setMaze(m.toString());
+						msh.setSol(temp.get(m).toString());
+						msh.setId(name);
+					}
+				}
+			}
+			/*msh.setMaze(maze.toString());
 			msh.setSol(sol.toString());
-			msh.setId(MazeName);
+			msh.setId(MazeName);*/
 			
 			session.save(msh);
 			session.getTransaction().commit();
@@ -224,21 +245,26 @@ public class MyModel extends Observable implements Model
 	}
 
 	 /**
-	   * This method gets the current Solution.
-	   * @param Nothing.
+	   * This method gets the Solution with the specific maze name.
+	   * @param name <b>(String) </b>This is the parameter to the getSolution method.
 	   * @return sol <b>(Solution) </b>.
 	   */
 	
 	@Override
-	public Solution getSolution() 
+	public Solution getSolution(String name) 
 	{
 		System.out.println("get solution of the maze");
-		if(sol==null)
+		
+		HashMap<Maze, Solution> temp = msols.get(name);
+		Solution solution = temp.values().iterator().next();
+		
+		
+		if(solution==null)
 		{
 			System.out.println("No solution yet");
 			return null;
 		}
-		return sol;
+		return solution;
 	}
 
 	

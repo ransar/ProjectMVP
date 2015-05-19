@@ -91,7 +91,7 @@ public class Presenter implements Observer{
 		@Override
 		public void doCommand(String path) throws FileNotFoundException,IOException
 		{
-			v.displaySolution(m.getSolution());			
+			v.displaySolution(m.getSolution(path));			
 		}		
 	}
 	public class Exit implements Command

@@ -23,11 +23,11 @@ public interface Model
 	   */
 	void generateMaze(int rows,int cols);
 	 /**
-	   * This method gets the current maze.
-	   * @param Nothing.
+	   * This method gets the maze with the specific name.
+	   * @param name <b>(String) </b>This is the parameter to the getMaze method.
 	   * @return maze <b>(Maze) </b>.
 	   */
-	Maze getMaze();
+	Maze getMaze(String name);
 	 /**
 	   * This method solves the Maze m.
 	   * @param m <b>(Maze) </b>This is the parameter to the solveMaze method
@@ -36,12 +36,12 @@ public interface Model
 	void solveMaze(Maze m); 
 	
 	 /**
-	   * This method gets the current Solution.
-	   * @param Nothing.
+	   * This method gets the Solution with the specific maze name.
+	   * @param name <b>(String) </b>This is the parameter to the getSolution method.
 	   * @return sol <b>(Solution) </b>.
 	   */
 
-	Solution getSolution();
+	Solution getSolution(String name);
 	 /**
 	   * This method stops the whole process, shuts down the threadpool.
 	   * @param Nothing.
