@@ -29,6 +29,15 @@ import algorithms.search.Solution;
 //import com.google.common.util.concurrent.ListeningExecutorService;
 //import com.google.common.util.concurrent.MoreExecutors;
 
+
+/**
+* The MyModel class, extends observable and implements the Model interface.
+* @author  Sarusi Ran, Gershfeld Itzik 
+* @version 1.0
+* @since   2015-05-18 
+*/
+
+
 public class MyModel extends Observable implements Model
 {
 	ExecutorService executor;
@@ -37,13 +46,12 @@ public class MyModel extends Observable implements Model
 	String MazeName;
 	HashMap<String,HashMap<Maze, Solution>> msols;
 	
+	
 	 /**
 	   * This method converts the data in an InputStream to a String.
 	   * @param in <b>(InputStream) </b>This is the parameter to the fromStream method
 	   * @return s <b>(String) </b>
 	   */
-	
-
 	
 	public MyModel() 
 	{

@@ -18,11 +18,17 @@ import algorithms.search.AStar;
 import algorithms.search.MazeManhattanDistance;
 import algorithms.search.Solution;
 
-///connect the two of our projects, i should do the equals function to compare mazes, do github !!!
 
+/**
+ * This is the Run class that contains the main function which connects the observer with the other observables.
+ */
 
 public class Run {
 
+	 /**
+	   * This is the main method which connects the observer with the other observables, in this function we are assembling the MVP parts.
+	   * @return Nothing.
+	   */
 	public static void main(String[] args) 
 	{
 		//my Program
