@@ -8,6 +8,7 @@ import model.MyModel;
 import presenter.Presenter;
 import presenter.Properties;
 import view.MyView;
+import view.StartWindow;
 
 ///////Submitted by: Sarusi Ran 208631143, Gershfeld Itzik 208491886
 
@@ -26,7 +27,7 @@ public class Run {
 	{
 		
 		///////////////////////////////////////////////////////////////////
-		MyModel m = new MyModel(new Properties());
+		/*MyModel m = new MyModel(new Properties());
 		MyView v = new MyView();
 		Properties pro;
 		if((pro=readProperties())!=null)
@@ -36,7 +37,22 @@ public class Run {
 		Presenter p = new Presenter(m,v);
 		m.addObserver(p);
 		v.addObserver(p);
-		v.start();
+		v.start();*/
+		
+		
+		//////////////////////////////////////////////////////////////////
+		MyModel m=new MyModel(new Properties());
+		StartWindow win=new StartWindow("Start window", 1000, 1000);
+		MyView v = new MyView();
+		Properties pro;
+		if((pro=readProperties())!=null)
+			m=new MyModel(pro);
+		else
+			m=new MyModel(new Properties());
+		Presenter p = new Presenter(m,v);
+		m.addObserver(p);
+		v.addObserver(p);
+		win.run();
 	}
 	/**
 	 * Reads the properties from the XML file and sets the project's properties.

@@ -20,6 +20,7 @@
 	<classpathentry kind="lib" path="lib/jboss-transaction-api_1.2_spec-1.0.0.Final.jar"/>
 	<classpathentry kind="lib" path="lib/antlr-2.7.7.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-jdk14-1.5.2.jar"/>
+	<classpathentry kind="lib" path="swt/org.eclipse.swt.win32.win32.x86_64_3.103.2.v20150203-1351.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hibernate"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
