@@ -69,11 +69,13 @@ public class StartWindow extends BasicWindow implements View
 		Button a=new Button(shell, SWT.PUSH);
 		a.setText("Generate a maze");
 		a.setLayoutData(new GridData(SWT.NONE,SWT.NONE, false,false));
+		MazeDisplay maze=new MazeDisplay(shell, SWT.BORDER);
+		maze.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,true));
 		a.addSelectionListener(new SelectionListener() 
 		{
 			
 			@Override
-			public void widgetSelected(SelectionEvent arg0) 
+			public void widgetSelected(SelectionEvent e) 
 			{
 				
 			}
@@ -82,8 +84,6 @@ public class StartWindow extends BasicWindow implements View
 			public void widgetDefaultSelected(SelectionEvent arg0) {}
 		});
 			
-		   MazeDisplay maze=new MazeDisplay(shell, SWT.BORDER);
-		   maze.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,true));
 
 		
 	}
