@@ -127,7 +127,7 @@ public class MyModel extends Observable implements Model
 	public void generateMaze(int rows, int cols) 
 	{
 		
-		switch(pro.getMazeGenerator()) //it worked with anonymous class!!!!! dont know why but do this for all and investigate further!!!!!
+		switch(pro.getMazeGenerator()) 
 		{
 		case DFS_ALGO:
 			Future<Maze> future = executor.submit(new Callable<Maze>()
