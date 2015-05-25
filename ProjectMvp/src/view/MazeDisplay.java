@@ -1,12 +1,12 @@
 package view;
 
-import java.awt.Dimension;
 
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -33,16 +33,17 @@ public class MazeDisplay extends Canvas
 			public void paintControl(PaintEvent e) {
 				   e.gc.setForeground(new Color(null,0,0,0));
 				   e.gc.setBackground(new Color(null,0,0,0));
-
-				   int width = (maze.getCols())*125;
-				   int height = (maze.getRows())*125;
-				   setSize(width, height);
-				  // int width=getSize().x;
-				  // int height=getSize().y;
+				   //int width = (maze.getCols())*100;
+				   //int height = (maze.getRows())*100;
+				   //setSize(width, height);
+				   int width=getSize().x;
+				   int height=getSize().y;
 				   System.out.println(width);
 				   System.out.println(height);
-				   int w=width/maze.getRows();
-				   int h=height/maze.getCols();
+				   int w = 100;
+				   int h = 100;
+				 //  int w=width/(maze.getRows());
+				   //int h=height/(maze.getCols());
 
 				   for(int i=0;i<maze.getRows();i++)
 				      for(int j=0;j<maze.getCols();j++)
@@ -52,17 +53,17 @@ public class MazeDisplay extends Canvas
 				          if(i==0 && j==0)
 				          {
 					          if(maze.getCell(i, j).getHasLeftWall() && maze.getCell(i, j).getHasBottomWall())
-					        	  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 4.jpg")), x, y);
+					        	  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 4.png")), x, y);
 					          else 
 					          {
 					        	  if(!maze.getCell(i, j).getHasBottomWall() && !maze.getCell(i, j).getHasLeftWall())
-					        		  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 12.jpg")), x, y);
+					        		  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 12.png")), x, y);
 					        	  else
 					        	  {
 					        		  if(maze.getCell(i, j).getHasBottomWall())
-					        			  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 9.jpg")), x, y);
+					        			  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 9.png")), x, y);
 					        		  else
-					        			  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 5.jpg")), x, y);
+					        			  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 5.png")), x, y);
 					        	  }
 				        	  }
 				          }
@@ -71,17 +72,17 @@ public class MazeDisplay extends Canvas
 				        	  	if(i==0 && j!=0)
 				        	  	{
 						          if(maze.getCell(i, j).getHasLeftWall() && maze.getCell(i, j).getHasBottomWall())
-						        	  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 16.jpg")), x, y);
+						        	  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 16.png")), x, y);
 						          else 
 						          {
 						        	  if(!maze.getCell(i, j).getHasBottomWall() && !maze.getCell(i, j).getHasLeftWall())
-						        		  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 7.jpg")), x, y);
+						        		  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 7.png")), x, y);
 						        	  else
 						        	  {
 						        		  if(maze.getCell(i, j).getHasBottomWall())
-						        			  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 6.jpg")), x, y);
+						        			  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 6.png")), x, y);
 						        		  else
-						        			  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 13.jpg")), x, y);
+						        			  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 13.png")), x, y);
 						        	  }
 					        	  } 
 					          }
@@ -91,34 +92,34 @@ public class MazeDisplay extends Canvas
 				        	  if(j==0 && i!=0)
 					          {
 						          if(maze.getCell(i, j).getHasLeftWall() && maze.getCell(i, j).getHasBottomWall())
-						        	  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 10.jpg")), x, y);
+						        	  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 10.png")), x, y);
 						          else 
 						          {
 						        	  if(!maze.getCell(i, j).getHasBottomWall() && !maze.getCell(i, j).getHasLeftWall())
-						        		  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 8.jpg")), x, y);
+						        		  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 8.png")), x, y);
 						        	  else
 						        	  {
 						        		  if(maze.getCell(i, j).getHasBottomWall())
-						        			  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 14.jpg")), x, y);
+						        			  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 14.png")), x, y);
 						        		  else
-						        			  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 15.jpg")), x, y);
+						        			  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 15.png")), x, y);
 						        	  }
 					        	  }
 					          }
 				        	  else
 					          {
 						          if(maze.getCell(i, j).getHasLeftWall() && maze.getCell(i, j).getHasBottomWall())
-						        	  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 4.jpg")), x, y);
+						        	  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 4.png")), x, y);
 						          else 
 						          {
 						        	  if(!maze.getCell(i, j).getHasBottomWall() && !maze.getCell(i, j).getHasLeftWall())
-						        		  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 3.jpg")), x, y);
+						        		  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 3.png")), x, y);
 						        	  else
 						        	  {
 						        		  if(maze.getCell(i, j).getHasBottomWall())
-						        			  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 2.jpg")), x, y);
+						        			  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 2.png")), x, y);
 						        		  else
-						        			  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 1.jpg")), x, y);
+						        			  e.gc.drawImage(new Image(Display.getCurrent(),new ImageData("resources/state 1.png")), x, y);
 						        	  }
 					        	  }
 					          }
@@ -126,14 +127,13 @@ public class MazeDisplay extends Canvas
 				          }
 				         
 				      }
+				   
 			}
 				
 		});
 	}
-	public void start(int rows, int cols)
+	public void start(Maze maze)
 	{
-		MazeGenerator mg=new DFSMazeGenerator();
-		Maze maze = mg.generateMaze(rows,cols);
 		displayMaze(maze);
 	}
 

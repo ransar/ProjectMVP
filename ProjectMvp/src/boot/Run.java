@@ -42,7 +42,7 @@ public class Run {
 		
 		//////////////////////////////////////////////////////////////////
 		MyModel m=new MyModel(new Properties());
-		StartWindow win=new StartWindow("Start window", 1000, 1000);
+		StartWindow win=new StartWindow("Start window", 1500, 1350);
 		MyView v = new MyView();
 		Properties pro;
 		if((pro=readProperties())!=null)

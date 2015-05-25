@@ -17,7 +17,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import presenter.Presenter;
+import algorithms.mazeGenerators.DFSMazeGenerator;
 import algorithms.mazeGenerators.Maze;
+import algorithms.mazeGenerators.MazeGenerator;
 import algorithms.search.Solution;
 
 public class StartWindow extends BasicWindow implements View
@@ -26,6 +28,8 @@ public class StartWindow extends BasicWindow implements View
 	CliMVP c;
 	int numR = 0;
 	int numC = 0;
+	Maze m;
+	Solution sol;
 	public StartWindow(String title, int width, int height) 
 	{
 		super(title, width, height);
@@ -78,7 +82,7 @@ public class StartWindow extends BasicWindow implements View
 		shell.setLayout(new GridLayout(2,false));
 		
 		Label numOfRows = new Label(shell, SWT.COLOR_BLUE);
-		numOfRows.setText("Choose the number of rows");
+		numOfRows.setText("Choose the number of rows and columns");
 		numOfRows.setLayoutData(new GridData(SWT.NONE,SWT.NONE, false,false,1,1));
 		MazeDisplay maze=new MazeDisplay(shell, SWT.BORDER);
 		maze.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,true,1,5));
@@ -154,7 +158,9 @@ public class StartWindow extends BasicWindow implements View
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				maze.start(numR,numC);
+				MazeGenerator mg=new DFSMazeGenerator();
+				m = mg.generateMaze(numR,numC);
+				maze.start(m);
 			}
 			
 			@Override
