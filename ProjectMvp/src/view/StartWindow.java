@@ -74,6 +74,7 @@ public class StartWindow extends BasicWindow implements View
 		a.addSelectionListener(new SelectionListener() 
 		{
 			
+			
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
