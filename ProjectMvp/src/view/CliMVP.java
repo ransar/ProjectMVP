@@ -11,6 +11,7 @@ import java.util.HashMap;
  */
 public class CliMVP extends CLI implements Runnable{
 	MyView v;
+	StartWindow sw;
 	/**
 	 * Constructs the cliMvp
 	 * @param in a BufferedReader we put on the super class
@@ -40,6 +41,10 @@ public class CliMVP extends CLI implements Runnable{
 	public void setView(MyView v2)
 	{
 		this.v=v2;
+	}
+	public void setView(StartWindow sw)
+	{
+		this.sw=sw;
 	}
 	@Override
 	/**

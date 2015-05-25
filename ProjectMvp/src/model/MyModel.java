@@ -32,10 +32,6 @@ import algorithms.search.MazeAirDistance;
 import algorithms.search.MazeManhattanDistance;
 import algorithms.search.Solution;
 
-//import com.google.common.util.concurrent.ListenableFuture;
-//import com.google.common.util.concurrent.ListeningExecutorService;
-//import com.google.common.util.concurrent.MoreExecutors;
-
 
 /**
 * The MyModel class, extends observable and implements the Model interface.

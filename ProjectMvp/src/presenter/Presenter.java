@@ -182,6 +182,24 @@ public class Presenter implements Observer{
 			v.printMessage((String)arg);
 		}
 	}
+	public String getCommand() {
+		return command;
+	}
+	public void setCommand(String command) {
+		this.command = command;
+	}
+	public View getV() {
+		return v;
+	}
+	public void setV(View v) {
+		this.v = v;
+	}
+	public Model getM() {
+		return m;
+	}
+	public void setM(Model m) {
+		this.m = m;
+	}
 	
 
 }

@@ -1,12 +1,10 @@
 package view;
 
-import model.MazeSolutionHibernate;
+import java.awt.Dimension;
 
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Device;
-import org.eclipse.swt.graphics.GCData;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.Canvas;
@@ -23,11 +21,12 @@ public class MazeDisplay extends Canvas
 	public MazeDisplay(Composite parent, int style) 
 	{
 		super(parent, style);
-		MazeSolutionHibernate ms = new MazeSolutionHibernate();
-		MazeGenerator mg=new DFSMazeGenerator();
-		Maze maze = mg.generateMaze(8,8);
+
+		
+	}
+	public void displayMaze(Maze maze)
+	{
 		setBackground(new Color(null, 255, 255, 255));
-		//Image st1 = new Image(display,)
 		addPaintListener(new PaintListener() {
 			
 			@Override
@@ -35,9 +34,13 @@ public class MazeDisplay extends Canvas
 				   e.gc.setForeground(new Color(null,0,0,0));
 				   e.gc.setBackground(new Color(null,0,0,0));
 
-				   int width=getSize().x;
-				   int height=getSize().y;
-
+				   int width = (maze.getCols())*125;
+				   int height = (maze.getRows())*125;
+				   setSize(width, height);
+				  // int width=getSize().x;
+				  // int height=getSize().y;
+				   System.out.println(width);
+				   System.out.println(height);
 				   int w=width/maze.getRows();
 				   int h=height/maze.getCols();
 
@@ -126,7 +129,12 @@ public class MazeDisplay extends Canvas
 			}
 				
 		});
-		
+	}
+	public void start(int rows, int cols)
+	{
+		MazeGenerator mg=new DFSMazeGenerator();
+		Maze maze = mg.generateMaze(rows,cols);
+		displayMaze(maze);
 	}
 
 }
