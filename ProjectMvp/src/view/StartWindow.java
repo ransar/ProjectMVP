@@ -193,6 +193,9 @@ public class StartWindow extends BasicWindow implements View
 				MazeGenerator mg=new DFSMazeGenerator();
 				m = mg.generateMaze(numR,numC);
 				maze.start(m);
+				/*notifyObservers("generate maze gogo 10 10");
+				m = p.getM().getMaze();
+				maze.start(m);*/
 				maze.forceFocus();
 			}
 			
