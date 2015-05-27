@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.Observable;
+import java.util.Observer;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -27,19 +29,15 @@ import algorithms.search.Solution;
 public class StartWindow extends BasicWindow implements View
 {
 	Presenter p;
-	CliMVP c;
 	int numR = 0;
 	int numC = 0;
 	Maze m;
 	Solution sol;
-	MazeDisplay maze;
 	public StartWindow(String title, int width, int height) 
 	{
 		super(title, width, height);
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		PrintWriter writer = new PrintWriter(System.out);
-		this.c=new CliMVP(reader, writer);
-		c.setView(this);
 
 	}
 
@@ -87,26 +85,30 @@ public class StartWindow extends BasicWindow implements View
 		Label numOfRows = new Label(shell, SWT.COLOR_BLUE);
 		numOfRows.setText("Choose the number of rows and columns");
 		numOfRows.setLayoutData(new GridData(SWT.NONE,SWT.NONE, false,false,1,1));
-		maze=new MazeDisplay(shell, SWT.BORDER);
+		Board maze=new Board(shell, SWT.BORDER);
 		maze.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,true,1,7));
 		maze.addMouseWheelListener(new MouseWheelListener() {
 			
 			@Override
 			public void mouseScrolled(MouseEvent e) 
 			{
-				//MazeDisplay.this.getSize().x *  (int) 1.1;
 				if((e.stateMask & SWT.CTRL) != 0)
 				{
 					if(e.count > 0)
 					{
-						maze.setSize((int)((maze.getSize().x)*1.1),(int)((maze.getSize().y)*1.1));
-						maze.redraw();
+						if((int)((maze.getSize().x)*1.1)<= shell.getSize().x && (int)((maze.getSize().y)*1.1)<= shell.getSize().y)
+						{
+							maze.setSize((int)((maze.getSize().x)*1.1),(int)((maze.getSize().y)*1.1));
+							maze.redraw();
+						}
 					}
 					else 
 					{
-						maze.setSize((int)((maze.getSize().x)/1.1),(int)((maze.getSize().y)/1.1));
-						maze.redraw();
-					
+						if((maze.getSize().x)>=0 && (maze.getSize().y)>=0)
+						{
+							maze.setSize((int)((maze.getSize().x)/1.1),(int)((maze.getSize().y)/1.1));
+							maze.redraw();
+						}
 					}
 						
 				}
@@ -115,7 +117,7 @@ public class StartWindow extends BasicWindow implements View
 		});
 		Combo rows = new Combo(shell, SWT.DROP_DOWN | SWT.BORDER | SWT.READ_ONLY);
 		rows.setLayoutData(new GridData(SWT.NONE,SWT.NONE, false,false,1,1));
-		for(int i=2;i<11;i++)
+		for(int i=2;i<36;i++)
 		{
 			rows.add(i + " rows");
 		}
@@ -124,7 +126,7 @@ public class StartWindow extends BasicWindow implements View
 		numOfCols.setLayoutData(new GridData(SWT.NONE,SWT.NONE, false,false,1,1));
 		Combo cols = new Combo(shell, SWT.DROP_DOWN | SWT.BORDER | SWT.READ_ONLY);
 		cols.setLayoutData(new GridData(SWT.NONE,SWT.NONE, false,false,1,1));
-		for(int i=2;i<11;i++)
+		for(int i=2;i<36;i++)
 		{
 			cols.add(i + " columns");
 		}
@@ -143,7 +145,7 @@ public class StartWindow extends BasicWindow implements View
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				for(int i=2;i<11;i++)
+				for(int i=2;i<36;i++)
 				{
 					StringBuilder str= new StringBuilder();
 					str.append(i);
@@ -166,7 +168,7 @@ public class StartWindow extends BasicWindow implements View
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				for(int i=2;i<11;i++)
+				for(int i=2;i<36;i++)
 				{
 					StringBuilder str= new StringBuilder();
 					str.append(i);
@@ -190,12 +192,16 @@ public class StartWindow extends BasicWindow implements View
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				MazeGenerator mg=new DFSMazeGenerator();
+				/*MazeGenerator mg=new DFSMazeGenerator();
 				m = mg.generateMaze(numR,numC);
-				maze.start(m);
-				/*notifyObservers("generate maze gogo 10 10");
-				m = p.getM().getMaze();
 				maze.start(m);*/
+				/*setChanged();
+				p.setCommand("generate maze");
+				notifyObservers("generate maze gogo 10 10");
+				m = p.getM().getMaze();
+				maze.start(m);
+				maze.forceFocus();*/
+				maze.displayMaze(new DFSMazeGenerator().generateMaze(numR, numC));
 				maze.forceFocus();
 			}
 			
@@ -238,5 +244,6 @@ public class StartWindow extends BasicWindow implements View
 
 		
 	}
+
 	
 }

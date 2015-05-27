@@ -42,16 +42,17 @@ public class Run {
 		
 		//////////////////////////////////////////////////////////////////
 		MyModel m=new MyModel(new Properties());
-		StartWindow win=new StartWindow("Start window", 1500, 1350);
+		StartWindow win=new StartWindow("Start window", 1200, 1000);
 		MyView v = new MyView();
-		Properties pro;
+		/*Properties pro;
 		if((pro=readProperties())!=null)
 			m=new MyModel(pro);
 		else
-			m=new MyModel(new Properties());
-		Presenter p = new Presenter(m,v);
+			m=new MyModel(new Properties());*/
+		Presenter p = new Presenter(m,win);
 		m.addObserver(p);
-		v.addObserver(p);
+		win.addObserver(p);
+		//v.addObserver(p);
 		win.run();
 	}
 	/**
