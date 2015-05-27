@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseWheelListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
@@ -30,6 +32,7 @@ public class StartWindow extends BasicWindow implements View
 	int numC = 0;
 	Maze m;
 	Solution sol;
+	MazeDisplay maze;
 	public StartWindow(String title, int width, int height) 
 	{
 		super(title, width, height);
@@ -84,8 +87,32 @@ public class StartWindow extends BasicWindow implements View
 		Label numOfRows = new Label(shell, SWT.COLOR_BLUE);
 		numOfRows.setText("Choose the number of rows and columns");
 		numOfRows.setLayoutData(new GridData(SWT.NONE,SWT.NONE, false,false,1,1));
-		MazeDisplay maze=new MazeDisplay(shell, SWT.BORDER);
-		maze.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,true,1,5));
+		maze=new MazeDisplay(shell, SWT.BORDER);
+		maze.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,true,1,7));
+		maze.addMouseWheelListener(new MouseWheelListener() {
+			
+			@Override
+			public void mouseScrolled(MouseEvent e) 
+			{
+				//MazeDisplay.this.getSize().x *  (int) 1.1;
+				if((e.stateMask & SWT.CTRL) != 0)
+				{
+					if(e.count > 0)
+					{
+						maze.setSize((int)((maze.getSize().x)*1.1),(int)((maze.getSize().y)*1.1));
+						maze.redraw();
+					}
+					else 
+					{
+						maze.setSize((int)((maze.getSize().x)/1.1),(int)((maze.getSize().y)/1.1));
+						maze.redraw();
+					
+					}
+						
+				}
+				
+			}
+		});
 		Combo rows = new Combo(shell, SWT.DROP_DOWN | SWT.BORDER | SWT.READ_ONLY);
 		rows.setLayoutData(new GridData(SWT.NONE,SWT.NONE, false,false,1,1));
 		for(int i=2;i<11;i++)
@@ -104,7 +131,12 @@ public class StartWindow extends BasicWindow implements View
 		Button a=new Button(shell, SWT.PUSH);
 		a.setText("Generate the maze");
 		a.setLayoutData(new GridData(SWT.NONE,SWT.NONE, false,false,1,1));
-		
+		Button hint=new Button(shell, SWT.PUSH);
+		hint.setText("Give me a hint ✆");
+		hint.setLayoutData(new GridData(SWT.NONE,SWT.NONE, false,false,1,1));
+		Button solve=new Button(shell, SWT.PUSH);
+		solve.setText("Solve the maze ☺");
+		solve.setLayoutData(new GridData(SWT.NONE,SWT.NONE, false,false,1,1));
 		cols.addSelectionListener(new SelectionListener() 
 		{
 			
@@ -161,12 +193,42 @@ public class StartWindow extends BasicWindow implements View
 				MazeGenerator mg=new DFSMazeGenerator();
 				m = mg.generateMaze(numR,numC);
 				maze.start(m);
+				maze.forceFocus();
 			}
 			
 			@Override
 			public void widgetDefaultSelected(SelectionEvent arg0) {}
 		});
 			
+		hint.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		solve.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 		
 		

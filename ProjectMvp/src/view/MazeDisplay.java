@@ -1,6 +1,9 @@
 package view;
 
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseWheelListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Color;
@@ -131,6 +134,8 @@ public class MazeDisplay extends Canvas
 			}
 				
 		});
+		
+		
 	}
 	public void start(Maze maze)
 	{
