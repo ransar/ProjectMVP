@@ -12,6 +12,7 @@ public class Properties implements Serializable {
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = 933599711108468L;
 	/**
 	 * enums to match the users' selscetion

@@ -31,7 +31,7 @@ public class StartWindow extends BasicWindow implements View
 	Presenter p;
 	int numR = 0;
 	int numC = 0;
-	Maze m;
+	Maze MyMaze;
 	Solution sol;
 	public StartWindow(String title, int width, int height) 
 	{
@@ -78,7 +78,7 @@ public class StartWindow extends BasicWindow implements View
 	}
 
 	@Override
-	void initWidgets() 
+	initWidgets() 
 	{
 		shell.setLayout(new GridLayout(2,false));
 		
@@ -192,7 +192,9 @@ public class StartWindow extends BasicWindow implements View
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				maze.displayMaze(new DFSMazeGenerator().generateMaze(numR, numC));
+				Maze m = new DFSMazeGenerator().generateMaze(numR, numC);
+				MyMaze=m;
+				maze.displayMaze(m);
 				maze.forceFocus();
 			}
 			
@@ -230,11 +232,12 @@ public class StartWindow extends BasicWindow implements View
 			}
 		});
 		
-		
-		
 
 		
 	}
-
+	public Maze getMaze()
+	{
+		return this.MyMaze;
+	}
 	
 }
