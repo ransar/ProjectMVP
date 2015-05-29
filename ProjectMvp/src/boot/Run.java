@@ -42,7 +42,7 @@ public class Run {
 		
 		//////////////////////////////////////////////////////////////////
 		MyModel m=new MyModel(new Properties());
-		StartWindow win=new StartWindow("Start window", 1200, 1000);
+		StartWindow win=new StartWindow("Row Out Maze", 1200, 1000);
 		MyView v = new MyView();
 		/*Properties pro;
 		if((pro=readProperties())!=null)

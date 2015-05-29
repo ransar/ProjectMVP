@@ -48,7 +48,6 @@ public class Board extends Composite
 		GridLayout layout=new GridLayout(mazeC, true);
 		layout.horizontalSpacing=0;
 		layout.verticalSpacing=0;
-		//setLayoutData(layout);
 		setLayout(layout);
 		tiles=new Tile[mazeR][mazeC];
 		for(int i=0;i<mazeR;i++)
@@ -59,7 +58,6 @@ public class Board extends Composite
 				tiles[i][j].setImage(setImg(m,i,j));
 			}
 		layout();
-		//redraw();
 	}
 	private void delMaze()
 	{

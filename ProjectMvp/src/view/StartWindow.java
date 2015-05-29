@@ -192,15 +192,6 @@ public class StartWindow extends BasicWindow implements View
 			@Override
 			public void widgetSelected(SelectionEvent e) 
 			{
-				/*MazeGenerator mg=new DFSMazeGenerator();
-				m = mg.generateMaze(numR,numC);
-				maze.start(m);*/
-				/*setChanged();
-				p.setCommand("generate maze");
-				notifyObservers("generate maze gogo 10 10");
-				m = p.getM().getMaze();
-				maze.start(m);
-				maze.forceFocus();*/
 				maze.displayMaze(new DFSMazeGenerator().generateMaze(numR, numC));
 				maze.forceFocus();
 			}
